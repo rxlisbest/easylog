@@ -1,0 +1,17 @@
+{
+    "name": "ruixinglong/easylog",
+    "description": "php log output",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Roy",
+            "email": "rxlisbest@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "rxlisbest\\easylog\\": "src"
+        }
+    }
+}
