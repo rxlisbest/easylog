@@ -13,20 +13,11 @@ class EasyLog
     const TYPE_WARNING = 'warning';
     const TYPE_INFO = 'info';
 
-    /**
-     * 进度日志
-     * @name: processLine
-     * @param int $now
-     * @param int $total
-     * @return void
-     * @author: RuiXinglong <ruixl@soocedu.com>
-     * @time: 2017-06-19 10:00:00
-     */
     public static function processLine($now = 0, $total = 100, $type = 'info')
     {
         if (!preg_match("/cli/i", php_sapi_name())) {
             self::export('This method can only be used in cli mode!', 'error');
-            return ;
+            return;
         }
         $max_length = 80;
         $bar_length = floor($now / $total * $max_length);
@@ -35,15 +26,6 @@ class EasyLog
         echo self::getColorContent(sprintf("\r[%s]%-${max_length}s[%d/%d]${end}", date('Y-m-d H:i:s'), $bar_content, $now, $total), $type);
     }
 
-    /**
-     * 单行进度日志
-     * @name: process
-     * @param int $now
-     * @param int $total
-     * @return void
-     * @author: RuiXinglong <ruixl@soocedu.com>
-     * @time: 2017-06-19 10:00:00
-     */
     public static function process($now = 0, $total = 100, $type = 'info')
     {
         $max_length = 80;
@@ -52,27 +34,11 @@ class EasyLog
         self::export(sprintf("[%s]%-${max_length}s[%d/%d]", date('Y-m-d H:i:s'), $bar_content, $now, $total), $type);
     }
 
-    /**
-     * 文本日志
-     * @name: text
-     * @param string $text
-     * @return void
-     * @author: RuiXinglong <ruixl@soocedu.com>
-     * @time: 2017-06-19 10:00:00
-     */
-    public static function text($text = '', $type = 'info')
+    protected static function text($text = '', $type = 'info')
     {
         self::export(sprintf("[%s]%s", date('Y-m-d H:i:s'), $text), $type);
     }
 
-    /**
-     * 脚本开始日志
-     * @name: start
-     * @param string $text
-     * @return void
-     * @author: RuiXinglong <ruixl@soocedu.com>
-     * @time: 2017-06-19 10:00:00
-     */
     public static function start($text = 'Start', $type = 'info')
     {
         $stime = microtime(true);
@@ -80,14 +46,6 @@ class EasyLog
         self::export(sprintf("[%s]%s", date('Y-m-d H:i:s'), $text), $type);
     }
 
-    /**
-     * 脚本结束日志
-     * @name: end
-     * @param string $text
-     * @return void
-     * @author: RuiXinglong <ruixl@soocedu.com>
-     * @time: 2017-06-19 10:00:00
-     */
     public static function end($text = 'End', $type = 'info')
     {
         if ($GLOBALS["stime"]) {
@@ -132,5 +90,20 @@ class EasyLog
             $end = '</font>';
         }
         return $start[$type] . $content . $end;
+    }
+
+    public static function info($text = '')
+    {
+        self::text($text, self::TYPE_INFO);
+    }
+
+    public static function warning($text)
+    {
+        self::text($text, self::TYPE_WARNING);
+    }
+
+    public static function error($text)
+    {
+        self::text($text, self::TYPE_ERROR);
     }
 }
