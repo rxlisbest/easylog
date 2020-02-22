@@ -1,6 +1,8 @@
 <?php
 
 namespace rxlisbest\easylog;
+use think\Exception;
+
 /**
  * Created by PhpStorm.
  * User: ruixinglong
@@ -12,12 +14,12 @@ class EasyLog
     const TYPE_ERROR = 'error';
     const TYPE_WARNING = 'warning';
     const TYPE_INFO = 'info';
+    const TYPE_PRIMARY = 'primary';
 
     public static function processLine($now = 0, $total = 100, $type = 'info')
     {
         if (!preg_match("/cli/i", php_sapi_name())) {
-            self::export('This method can only be used in cli mode!', 'error');
-            return;
+            throw new Exception('This method can only be used in cli mode!', 'error');
         }
         $max_length = 80;
         $bar_length = floor($now / $total * $max_length);
@@ -79,6 +81,7 @@ class EasyLog
                 'info' => "\033[0m",
                 'error' => "\033[31m",
                 'warning' => "\033[33m",
+                'primary' => "\e[36m"
             ];
             $end = "\033[0m";
         } else {
@@ -86,6 +89,7 @@ class EasyLog
                 'info' => '<font>',
                 'error' => '<font color="red">',
                 'warning' => '<font color="yellow">',
+                'primary' => '<font color="#409eff">',
             ];
             $end = '</font>';
         }
@@ -105,5 +109,10 @@ class EasyLog
     public static function error($text)
     {
         self::text($text, self::TYPE_ERROR);
+    }
+
+    public static function primary($text)
+    {
+        self::text($text, self::TYPE_PRIMARY);
     }
 }

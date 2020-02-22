@@ -25,4 +25,5 @@ EasyLog::end();
 
 EasyLog::warning("It is warning");
 EasyLog::error("It is error");
+EasyLog::primary("It is primary");
 ```
