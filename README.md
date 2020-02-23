@@ -1,9 +1,9 @@
 # easylog
-- 安装
+## Installation
 ```
 composer require rxlisbest/easylog=~2.0.0
 ```
-- 用法
+## Usage
 ```
 use rxlisbest\easylog\EasyLog;
 
@@ -27,3 +27,5 @@ EasyLog::warning("It is warning");
 EasyLog::error("It is error");
 EasyLog::primary("It is primary");
 ```
+## Preview
+![Priview](./docs/img/preview.gif)
