@@ -8,7 +8,9 @@
             "email": "rxlisbest@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "rxlisbest/slice-upload": "dev-master"
+    },
     "autoload": {
         "psr-4": {
             "rxlisbest\\easylog\\": "src"
